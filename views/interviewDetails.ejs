@@ -1,0 +1,109 @@
+<html>
+<head>
+    <title>Success Page</title>
+    <style type="text/css" media="screen">
+        body{
+            margin: 0px;
+            background-color: #e0dede;
+        }
+        
+        #header{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            background-color: grey;
+            height: 80px;
+            color: white;
+        }
+        #left-container{
+            margin-left: 20px;
+        }
+        #left-container a {
+            position: absolute;
+            left:130px;
+            top: 20px;
+        }
+        #right-container{
+            margin-right: 50px;
+            margin-top: 20px;
+        }
+        #right-container a{
+            margin-right: 20px;
+        }
+        span{
+            margin-left: 500px;
+        }
+        #sign-in-form{
+            margin: 60px;
+        }
+        input[type="submit"]{
+            margin-left: 30px;
+            width: 200px;
+            height: 40px;
+            background-color: greenyellow;
+        }
+        #outer-container{
+            display: flex;
+            justify-content: space-between;
+            margin-left: 300px;
+        }
+        #student-list-container{
+            margin-left: 10px;
+            padding-right: 50px;
+            width:50%;
+        }
+        #students{
+            display:flex;
+            justify-content: space-between;
+            border-bottom: 1px solid grey;
+        }
+
+        h2{
+            margin-left: 20px;
+            border-bottom: 2px solid black;
+        }
+        input,select{
+            width: 250px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <div id="left-container">
+            <img height="70px" width="70px" src="https://cdn-icons-png.flaticon.com/512/2725/2725708.png" alt="icon">
+            <a href="http://localhost:8000/"><b>Home</b></a>
+        </div>
+        <div id="right-container">
+            <!-- <a><b>Sign In</b></a> -->
+            <a href="http://localhost:8000/signOut"><b>Sign Out</b></a>
+        </div>
+    </div>
+    
+        <h1><span><%=companyName.toUpperCase()%> INTERVIEWS</span></h1>
+        <div id="outer-container">
+                <div id="student-list-container">
+                    <%if(students.length==0){%>
+                        <h4>No Interview Details!!!!</h4>
+                        <%}%>
+                    <ol>
+                        <%for(student of students){%>
+                            <li>
+                                <div id="students">
+                                    <div>
+                                    <p>
+                                      <b><%=student.sName.toUpperCase()%></b><br/>
+                                    </p>
+                                    </div>
+                                    <div>
+                                        <p><%=student.result.toUpperCase()%></p>
+                                    </div>
+                                </div>
+                                </li>
+                            <%}%>
+                    </ol>
+                </div>
+        </div>        
+
+</body>
+</html> 

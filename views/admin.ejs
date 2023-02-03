@@ -1,0 +1,191 @@
+<html>
+<head>
+    <title>Success Page</title>
+    <style type="text/css" media="screen">
+        body{
+            margin: 0px;
+            background-color: #e0dede;
+        }
+        #form{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            height: 300px;
+            width: 400px;
+            background: #f2f2f2;
+            overflow: hidden;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 0 20px 8px #d0d0d0;
+        }
+        
+        #header{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            background-color: grey;
+            height: 80px;
+            color: white;
+        }
+        #left-container{
+            margin-left: 20px;
+        }
+        #left-container a {
+            position: absolute;
+            left:130px;
+            top: 20px;
+        }
+        #right-container{
+            margin-right: 50px;
+            margin-top: 20px;
+        }
+        #right-container a{
+            margin-right: 20px;
+        }
+        span{
+            margin-left: 100px;
+        }
+        #sign-in-form{
+            margin: 60px;
+        }
+        input[type="submit"]{
+            margin-left: 30px;
+            width: 200px;
+            height: 40px;
+            background-color: greenyellow;
+        }
+        #outer-container{
+            display: flex;
+            justify-content: space-between;
+        }
+        #interview-list-container{
+            margin-left: 10px;
+            padding-right: 50px;
+            width:25%;
+            border-right: 2px solid black;
+        }
+        #student-list-container{
+            margin-left: 10px;
+            padding-right: 50px;
+            width:25%;
+            border-left: 2px solid black;
+        }
+        #interviews,#students{
+            display:flex;
+            justify-content: space-between;
+            border-bottom: 1px solid grey;
+        }
+        #interview-form{
+            position: absolute;
+            margin-top: 30px;
+            transform: translate(-50%, -50%);
+            left: 51%;
+            top: 51%;
+            height: 400px;
+            width: 30%;
+            background: #f2f2f2;
+            overflow: hidden;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 0 20px 8px #d0d0d0;
+        }
+        form{
+            margin-top: 30px;
+            margin-left: 80px;
+        }
+        h2{
+            margin-left: 20px;
+            border-bottom: 2px solid black;
+        }
+        input,select{
+            width: 250px;
+            height: 30px;
+        }
+        #s{
+            margin-left: 750px;
+        }
+        a{
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <div id="left-container">
+            <img height="70px" width="70px" src="https://cdn-icons-png.flaticon.com/512/2725/2725708.png" alt="icon">
+            <a href="http://localhost:8000/"><b>Home</b></a>
+        </div>
+        <div id="right-container">
+            <!-- <a><b>Sign In</b></a> -->
+            <a href="http://localhost:8000/signOut"><b>Sign Out</b></a>
+        </div>
+    </div>
+    
+        <h1><span>Interviews List</span><span id="s">Students List</span></h1>
+        <div id="outer-container">
+            <div id="interview-list-container">
+                <ol>
+                    <%for(interview of interviews[0]){%>
+                        <%var date=(" "+interview.when).substr(0,25)%>
+                        <a href="/interviewDetails/:<%=interview._id%>">
+                        <li>
+                            <div id="interviews">
+                                <div>
+                                <p>
+                                  <b><%=interview.cName.toUpperCase()%></b><br/>
+                                </p>
+                                </div>
+                                <div>
+                                    <p><%=date%></p>
+                                </div>
+                            </div>
+                            </li></a>
+                        <%}%>
+                </ol>
+            </div>
+            <div id="interview-form">
+                <h2><b>Fill Interview Details</b></h2>
+            
+                <form method="post" action="/createInterview">
+                    <label>Company Name</label><br/>
+                    <input type="text" name="cName" placeholder="Enter Company Name..." required/><br/><br/>
+                    <label>When</label><br/>
+                    <input type="date" name="when" required/><br/><br/>
+                    <label>Result</label><br/>
+                    <select name="result" required>
+                        <option value="pass">PASS</option>
+                        <option value="fail">FAIL</option>
+                        <option value="onHold">on Hold</option>
+                        <option value="notAttempted">Didn't Attempt</option>
+                    </select><br/><br/><br/>
+                    <input type="submit" value="Add Interview" />
+                </form>
+
+                </div>
+                <div id="student-list-container">
+                    <a href="/"><h2>Add New Student</h2></a>
+                    <ol>
+                        <%for(student of students[0]){%>
+                            <li>
+                                <div id="students">
+                                    <div>
+                                        <p><%=student.sName.toUpperCase()%></p>
+                                    </div>
+                                    <div>
+                                    <p>
+                                      <b><%=student.college.toUpperCase()%></b><br/>
+                                    </p>
+                                    </div>
+                                    <div>
+                                        <p><%=student.batch%></p>
+                                    </div>
+                                </div>
+                                </li>
+                            <%}%>
+                    </ol>
+                </div>
+        </div>        
+
+</body>
+</html> 
