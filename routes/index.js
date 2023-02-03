@@ -3,7 +3,7 @@ const router=express.Router();
 const homeController=require('../controllers/home_controller');
 
 console.log("router loaded");
-
+//different routes
 router.get('/',homeController.home);
 router.get('/signIn',homeController.signIn);
 router.get('/signUp',homeController.signUp);

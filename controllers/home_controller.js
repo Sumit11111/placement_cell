@@ -1,10 +1,13 @@
+//importing required packages
+const {ObjectId}=require('mongodb');
+const notifier = require("node-notifier");
+//imprting schema
 const interview = require("../models/interviews");
 const student = require("../models/students");
 const user = require("../models/users");
-const {ObjectId}=require('mongodb');
-const notifier = require("node-notifier");
 
 
+//home page controller
 module.exports.home=(req,res)=>{
     res.cookie("user_id","null",{maxAge:0});
     interview.find({},(err,interviews)=>{
@@ -20,24 +23,28 @@ module.exports.home=(req,res)=>{
         });
     
 }
-
+//sign In controller
 module.exports.signIn=(req,res)=>{
     return res.render('signIn',{
         title:"signIn"
     })
 }
+
+//signup cntroller
 module.exports.signUp=(req,res)=>{
     return res.render('signUp',{
         title:"signUp"
     })
 }
 
+//signout controller
 module.exports.signOut=(req,res)=>{
     res.cookie("user_id","null",{maxAge:0});
     notifier.notify('Signed Out!!!');
     return res.redirect("/signIn");
 }
 
+//employee creation on signup click
 module.exports.createUser=(req,res)=>{
     // console.log("gggggggggggggggggg:",req.body);
     // console.log(user);
@@ -67,6 +74,7 @@ module.exports.createUser=(req,res)=>{
     })
 }
 
+//interview creation controller
 module.exports.createInterview=(req,res)=>{
 
     interview.create({
@@ -107,6 +115,7 @@ module.exports.createInterview=(req,res)=>{
     
 }
 
+//after login home page for employees
 module.exports.admin=(req,res)=>{
     //console.log("inside admin",req.body.email);
     user.findOne({email:req.body.email},(err,u)=>{
@@ -162,6 +171,7 @@ module.exports.admin=(req,res)=>{
     
 }
 
+//student details creation and rendering success page
 module.exports.success=(req,res)=>{
     student.create({
         sName:req.body.sName,
@@ -185,6 +195,7 @@ module.exports.success=(req,res)=>{
     })
 }
 
+//interview details page rendering controller on click of company name
 module.exports.interviewDetails=(req,res)=>{
     var id=""+(req.params.cName).substr(1,30);
     var _id=new ObjectId(id);
