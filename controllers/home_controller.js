@@ -1,6 +1,7 @@
 //importing required packages
 const {ObjectId}=require('mongodb');
 const notifier = require("node-notifier");
+const {Parser}=require('json2csv');
 //imprting schema
 const interview = require("../models/interviews");
 const student = require("../models/students");
@@ -217,4 +218,14 @@ module.exports.interviewDetails=(req,res)=>{
         })
          
     })
+}
+
+module.exports.download=function(req,res){
+    const data=[];
+    student.find({},(err,students)=>{
+        const json2csv=new Parser({students});
+        const csv=json2csv.parse(students);
+        res.header('Content-Type','text/csv');
+        return res.send(csv);
+    })   
 }
